@@ -37,8 +37,12 @@ extension ExpoSwiftUI {
     }
 
     public override func createView(appContext: AppContext) -> UIView? {
+#if RCT_NEW_ARCH_ENABLED
       let props = Props()
       return HostingView(viewType: ViewType.self, props: props, appContext: appContext)
+#else
+      return UnimplementedExpoView(appContext: appContext, text: "Rendering SwiftUI views is possible only with the New Architecture enabled")
+#endif
     }
 
     public override func getSupportedPropNames() -> [String] {
